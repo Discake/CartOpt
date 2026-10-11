@@ -1,0 +1,9 @@
+<Solution>
+  <Project Path="src/CartOpt.Api/CartOpt.Api.csproj" Id="5f7088dd-8d9b-41e3-9afc-b9ae18458b1c" />
+  <Project Path="src/CartOpt.Application/CartOpt.Application.csproj" />
+  <Project Path="src/CartOpt.Domain/CartOpt.Domain.csproj" />
+  <Project Path="src/CartOpt.Infrastructure/CartOpt.Infrastructure.csproj" />
+  <Project Path="Tests/CartOpt.Application.Tests/CartOpt.Application.Tests.csproj" />
+  <Project Path="Tests/CartOpt.Domain.Tests/CartOpt.Domain.Tests.csproj" />
+  <Project Path="Tests/CartOpt.IntegrationTests/CartOpt.IntegrationTests.csproj" />
+</Solution>
