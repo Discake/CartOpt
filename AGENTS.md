@@ -47,3 +47,11 @@ Domain must not reference Infrastructure or Api.
 - Domain logic should be covered by unit tests.
 - Database behavior should be covered by integration tests against real PostgreSQL.
 - Bug fixes should include regression tests.
+
+## Language
+
+- Respond to the developer in Russian unless explicitly asked otherwise.
+- Explain implemented changes and architectural decisions in Russian.
+- Write code comments and XML documentation in Russian when comments are actually useful.
+- Do not add comments that merely repeat what the code already says.
+- Keep identifiers, type names, method names, API contracts, and other code-facing names in English.

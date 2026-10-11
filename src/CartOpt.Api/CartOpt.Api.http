@@ -1,5 +1,11 @@
-@host = https://localhost:7001
+@host = http://localhost:5228
 
-GET {{host}}/health
+### Liveness
+
+GET {{host}}/health/live
 
 ###
+
+### Readiness
+
+GET {{host}}/health/ready
