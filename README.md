@@ -1,36 +1,54 @@
 # CartOpt
 
-**CartOpt** is a personal C# / ASP.NET Core backend project focused on building a containerized web API with PostgreSQL.
+**CartOpt** — учебный backend-проект на **C# / ASP.NET Core (.NET 10)** с PostgreSQL, разделением ответственности по слоям и интеграционными тестами инфраструктуры.
 
-> **Repository status:** The application source code has not yet been pushed to this repository. At present, the repository contains only Git configuration files. The features below describe the project's intended/personal implementation, not functionality verifiable from this GitHub snapshot.
+> **Где исходники?** Разработка находится в ветке **[`develop/init`](https://github.com/Discake/CartOpt/tree/develop/init)**. Ветка `master` пока служит точкой входа в репозиторий и не содержит приложения. Для просмотра кода или локального запуска переключитесь на `develop/init`.
 
-## Project overview
+## Что реализовано в develop/init
 
-The project explores the backend development workflow with:
+- Структура решения: `CartOpt.Api`, `CartOpt.Application`, `CartOpt.Domain`, `CartOpt.Infrastructure`.
+- ASP.NET Core API с двумя проверками здоровья: `GET /health/live` (liveness) и `GET /health/ready` (проверка PostgreSQL).
+- Подключение PostgreSQL через Npgsql; `docker-compose.yml` поднимает базу данных.
+- Интеграционные тесты health endpoints с xUnit и Testcontainers.PostgreSql.
 
-- ASP.NET Core Web API and C#;
-- PostgreSQL for persistent storage;
-- Docker-based containerization;
-- health checks for application status.
+**Текущая стадия:** инфраструктурный каркас проекта. В опубликованном коде нет готовых бизнес-эндпоинтов корзины или подтверждённого полного сценария оптимизации покупок. Название проекта — направление дальнейшей разработки, а не заявление о завершённом продукте.
 
-## Technology stack
+## Технологии
 
-- C# / .NET / ASP.NET Core
-- PostgreSQL / SQL
-- Docker
+C# · .NET 10 · ASP.NET Core · PostgreSQL · Npgsql · Docker Compose · xUnit · Testcontainers
 
-## Running the project
+## Запуск из ветки с кодом
 
-Setup instructions and executable examples will be added when the application source, configuration, and Docker files are published. **The repository is not runnable in its current state.**
+Потребуются .NET 10 SDK и Docker с поддержкой Compose:
 
-## Roadmap
+```bash
+git clone https://github.com/Discake/CartOpt.git
+cd CartOpt
+git switch develop/init
+docker compose up -d
+dotnet restore CartOpt.slnx
+dotnet run --project src/CartOpt.Api
+```
 
-- [ ] Publish the application source code and solution/project files.
-- [ ] Publish a safe example of the application configuration (without secrets).
-- [ ] Add validated local and Docker startup instructions.
-- [ ] Document API endpoints and database initialization.
-- [ ] Add reproducible testing instructions.
+PostgreSQL опубликован локально на порту `55432`. Перед запуском API проверьте строку подключения `ConnectionStrings:PostgreSql` в конфигурации приложения — при необходимости переопределите её через переменные окружения или user-secrets.
 
-## Purpose
+В `src/CartOpt.Api/Properties/launchSettings.json` указаны профили запуска; адрес приложения зависит от выбранного профиля. Проверки доступны по `/health/live` и `/health/ready`.
 
-CartOpt is a learning and portfolio project for demonstrating practical backend development concepts: API design, persistence, containerization, and service observability.
+Запуск тестов:
+
+```bash
+dotnet test CartOpt.slnx
+```
+
+Интеграционным тестам нужен работающий Docker для Testcontainers. Команды приведены по коду ветки; в рамках обновления документации запуск не выполнялся.
+
+## Навигация
+
+- [Исходники и конфигурация — develop/init](https://github.com/Discake/CartOpt/tree/develop/init)
+- [API и health endpoints](https://github.com/Discake/CartOpt/blob/develop/init/src/CartOpt.Api/Program.cs)
+- [Docker Compose](https://github.com/Discake/CartOpt/blob/develop/init/docker-compose.yml)
+- [Интеграционные тесты](https://github.com/Discake/CartOpt/blob/develop/init/tests/CartOpt.IntegrationTests/HealthChecksTests.cs)
+
+## Дальнейшее развитие
+
+Реализация предметной логики, публичных API, хранения данных и сценариев оптимизации покупок. По мере стабилизации изменения могут быть перенесены в основную ветку.
